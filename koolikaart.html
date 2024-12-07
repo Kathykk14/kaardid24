@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+ <head>
+ <title>Kaart</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" />
+ <style>
+   body {padding: 0; margin: 0; }
+   html, body { height: 100%; width: 100%;}
+   #kaardikiht {float:bottom; width:60%; height:80%;}
+ </style>
+ <script>
+   var kaart, abikiht;
+   var hypik;
+   function algus(){
+    kaart = L.map('kaardikiht').setView([58.411065, 22.534676], 10);
+      new L.TileLayer(  'https://tiles.maaamet.ee/tm/tms/1.0.0/hybriid@GMC/{z}/{x}/{y}.png&ASUTUS=TLU&ERIALA=DIGIHUMANITAARIA', {
+	  attribution: "Map: <a  href='http://www.maaamet.ee/'>Maa-amet</a>",
+	  tms: true,
+    }).addTo(kaart);
+	abikiht=L.layerGroup();
+	abikiht.addTo(kaart);
+   }
+
+   function vajutus1 (){
+		vastus1.innerText="Gümnaasiumid";
+		abikiht.clearLayers();
+		L.circle([58.25700977867779, 22.49074694232198], {radius: 400, color: "yellow"}).addTo(abikiht).bindPopup("Saaremaa gümnaasium");
+		L.circle([58.560002764113506, 23.082221574853428], {radius: 400, color: "yellow"}).addTo(abikiht).bindPopup("Orissaare gümnaasium");
+
+		} 	
+	function vajutus2 () {
+		vastus1.innerText="Põhikoolid";
+		abikiht.clearLayers();
+		L.circle([58.166529, 22.250614], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Salme");
+		L.circle([58.25954, 22.488821], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Hariduse");
+		L.circle([58.257705, 22.481675], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Vanalinna");
+		L.circle([58.28593634041222, 22.0274473558256], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Lümanda");
+		L.circle([58.33016804541563, 22.254817719027827], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Kärla");
+		L.circle([58.46327188090247, 22.232662973009273], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Mustjala");
+		L.circle([58.347698185971375, 22.44418505951391], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Aste");
+		L.circle([58.354574652768605, 22.531288301844157], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Kaarma");
+		L.circle([58.5672275088359, 22.684323492623374], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Leisi");
+		L.circle([58.560013956548175, 23.082157201844154], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Orissaare");
+		L.circle([58.4036779342179, 22.997993784660487], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Laimjala");
+		L.circle([58.4084247004382, 22.794207790192946], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Valjala");
+		L.circle([58.369857432137586, 22.88066937485343], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Kallemäe");
+		L.circle([58.30417172234246, 22.73091746932097], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Pihtla");
+		L.circle([58.371869311940785, 22.670920446018552], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Kaali");
+		L.circle([58.24861840308668, 22.4982324558256], {radius: 300, color: "green"}).addTo(abikiht).bindPopup("Nooruse");
+		} 
+
+  </script>
+ </head>  
+ <body onload="algus()">
+ <input type="button" value="vajuta" onclick="vajutus1()" />
+ <input type="button" value="vajuta" onclick="vajutus2()" />
+ <span id="vastus1">Vastuse koht</span>
+  <div id="kaardikiht"></div>
+ </body>
+</html>
