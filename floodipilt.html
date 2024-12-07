@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Floodike</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+    <script>
+      let holes = []; 
+      let osc;
+
+      function setup() {
+        createCanvas(400, 600);
+        background(240);
+
+        // Initialize the oscillator
+        osc = new p5.Oscillator('sine');
+
+        //fl��di kuju
+        let recorderX = width / 2;
+        let recorderY = 50;
+        let recorderWidth = 50;
+        let recorderHeight = 500;
+
+
+        fill(255, 182, 193); // Pink color
+        noStroke();
+        rect(recorderX - recorderWidth / 2, recorderY, recorderWidth, recorderHeight, 20);
+
+        //augud 
+        let holeDiameter = 30;
+        let startY = 120;
+        let holeSpacing = 60;
+
+        //Helik�rgused iga augu kohta
+        let frequencies = [784, 698, 659, 587, 523, 494, 440]; 
+
+
+        for (let i = 0; i < 7; i++) {
+          let y = startY + i * holeSpacing;
+          holes.push({
+            x: recorderX,
+            y: y,
+            diameter: holeDiameter,
+            freq: frequencies[i],
+            active: false, // Whether the hole is pressed
+          });
+        }
+
+        // Draw initial state of the holes
+        drawHoles();
+      }
+
+      function drawHoles() {
+        for (let hole of holes) {
+          if (hole.active) {
+            fill(0, 0, 255); // Vajutades siniseks
+          } else {
+            fill(169); 
+          }
+          stroke(0);
+          ellipse(hole.x, hole.y, hole.diameter, hole.diameter);
+        }
+      }
+
+      function mousePressed() {
+    
+        for (let hole of holes) {
+          let d = dist(mouseX, mouseY, hole.x, hole.y);
+          if (d < hole.diameter / 2) {
+            hole.active = !hole.active; //Et muutuks kui vajutad ja tagasi
+            playSound(hole.freq);
+          }
+        }
+
+        drawHoles(); 
+      }
+
+      function playSound(frequency) {
+        osc.freq(frequency);
+        osc.start();
+        osc.amp(0.5, 0.05); 
+        setTimeout(() => osc.stop(), 300); // m�ngib 300ms ss l�petab
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Floodike</h1>
+  </body>
+</html>
